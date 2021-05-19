@@ -69,22 +69,55 @@ var fight = function(enemyName){
 }
 };
 
-for(var i = 0; i < enemyNames.length; i++){
+  var startGame = function (){
+    //reset player stats
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
+
+    for(var i = 0; i < enemyNames.length; i++){
+      if (playerHealth > 0) {
+          window.alert("Welcome to Robot Gladiators! Round " + ( i + 1 ));
+          // pick new enemy to fight based on the index of the enemyNames array
+          var pickedEnemyName = enemyNames[i];
+
+          // reset enemyHealth before starting new fight
+          enemyHealth = 50;
+
+          // use debugger to pause script from running and check what's going on at that moment in the code
+          // debugger;
+
+          // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+          fight(pickedEnemyName);
+      } else {
+          window.alert ("You have lost your robot in battle! Game over!");
+          break;
+      } 
+    }
+
+    //play again
+    endGame();
+  }
+
+  var endGame = function(){
+    window.alert("The Game how now ended. Let's see how you did!");
     if (playerHealth > 0) {
-        window.alert("Welcome to Robot Gladiators! Round " + ( i + 1 ));
-         // pick new enemy to fight based on the index of the enemyNames array
-        var pickedEnemyName = enemyNames[i];
-
-        // reset enemyHealth before starting new fight
-        enemyHealth = 50;
-
-        // use debugger to pause script from running and check what's going on at that moment in the code
-        // debugger;
-
-        // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-        fight(pickedEnemyName);
-    } else {
-        window.alert ("You have lost your robot in battle! Game over!");
-        break;
+      window.alert("Great job, you've survived the game! You received " + playerMoney + " coins.")
     } 
-}
+    else{
+      window.alert("You lost your robot in battle. 💀🤖");
+    }
+    //ask if the player wants to play again 
+    
+    var playAgainConfirm = window.confirm("Would you like to play again?");
+
+    if (playAgainConfirm){
+      //restart the game
+      startGame();
+    }
+    else {
+      window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+  };
+
+  startGame();
